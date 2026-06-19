@@ -24,7 +24,7 @@ jobs:
           gradle-version: '8.13'
 
       - name: Build debug APK
-        working-directory: ./quiz-master1/QuizMaster
+        working-directory: QuizMaster
         run: gradle assembleDebug --no-daemon
 
       - name: Decode signing keystore
@@ -32,7 +32,7 @@ jobs:
         continue-on-error: true
 
       - name: Build SIGNED release AAB
-        working-directory: ./quiz-master1/QuizMaster
+        working-directory: QuizMaster
         env:
           RELEASE_KEYSTORE_PATH: ${{ github.workspace }}/release.keystore
           RELEASE_STORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
@@ -45,12 +45,12 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: QuizMaster-debug-apk
-          path: ./quiz-master1/QuizMaster/app/build/outputs/apk/debug/app-debug.apk
+          path: QuizMaster/app/build/outputs/apk/debug/app-debug.apk
         continue-on-error: true
 
       - name: Upload release AAB
         uses: actions/upload-artifact@v4
         with:
           name: QuizMaster-release-aab
-          path: ./quiz-master1/QuizMaster/app/build/outputs/bundle/release/app-release.aab
+          path: QuizMaster/app/build/outputs/bundle/release/app-release.aab
         continue-on-error: true
