@@ -23,9 +23,13 @@ jobs:
         with:
           gradle-version: '8.13'
 
-      - name: Build debug APK
+      - name: Find and build
         run: |
-          cd QuizMaster-Complete/QuizMaster || cd QuizMaster
+          # Find settings.gradle.kts
+          PROJECT=$(find . -name "settings.gradle.kts" -type f | head -1 | xargs dirname)
+          echo "Found project at: $PROJECT"
+          cd "$PROJECT"
+          pwd
           gradle assembleDebug --no-daemon
 
       - name: Upload debug APK
