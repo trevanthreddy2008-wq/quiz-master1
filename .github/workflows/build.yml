@@ -23,17 +23,14 @@ jobs:
         with:
           gradle-version: '8.13'
 
-      - name: List files
-        run: ls -la
-
       - name: Build debug APK
         run: |
-          cd quiz-master1/QuizMaster
+          cd QuizMaster-Complete/QuizMaster || cd QuizMaster
           gradle assembleDebug --no-daemon
 
       - name: Upload debug APK
         uses: actions/upload-artifact@v4
         with:
           name: QuizMaster-debug-apk
-          path: quiz-master1/QuizMaster/app/build/outputs/apk/debug/app-debug.apk
+          path: "**/app/build/outputs/apk/debug/app-debug.apk"
         continue-on-error: true
