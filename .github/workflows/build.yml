@@ -25,11 +25,12 @@ jobs:
 
       - name: Find and build
         run: |
-          # Find settings.gradle.kts
-          PROJECT=$(find . -name "settings.gradle.kts" -type f | head -1 | xargs dirname)
-          echo "Found project at: $PROJECT"
-          cd "$PROJECT"
+          PROJECT_PATH=$(find . -name "settings.gradle.kts" -type f | head -1)
+          PROJECT_DIR=$(dirname "$PROJECT_PATH")
+          echo "Found project at: $PROJECT_DIR"
+          cd "$PROJECT_DIR"
           pwd
+          ls -la
           gradle assembleDebug --no-daemon
 
       - name: Upload debug APK
